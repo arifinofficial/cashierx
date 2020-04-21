@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +46,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/datatable/category', 'CategoryController@dataTable')->name('api.datatable.category');
     Route::get('/api/datatable/unit', 'UnitController@dataTable')->name('api.datatable.unit');
     Route::get('/api/datatable/variant', 'VariantController@dataTable')->name('api.datatable.variant');
+
+    Route::get('/testing-qpos', function () {
+        try {
+            $ip = '192.168.111.11'; // IP Komputer kita atau printer lain yang masih satu jaringan
+            $printer = 'EPSON TM-U220 Receipt'; // Nama Printer yang di sharing
+            $connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
+            $printer = new Printer($connector);
+            $printer -> text("Email : Halo" . "\n");
+            $printer -> cut();
+            $printer -> close();
+        } catch (Exception $e) {
+            $response = ['success'=>'false'];
+        }
+    })->name('qpos');
 });
