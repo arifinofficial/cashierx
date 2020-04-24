@@ -6,7 +6,7 @@
         <h1 class="h3 mb-0 text-gray-800">Transaksi</h1>
     </div>
     <pre>
-        @{{ listCart }}
+        @{{ total }}
     </pre>
     <div class="row mb-4">
         <div class="col-md-8">
@@ -111,7 +111,7 @@
                             </tr>
                             <tr>
                                 <td colspan="1" class="font-weight-bold">Total</td>
-                                <td colspan="3" class="text-right font-weight-bold">@{{ totalPrice | currency }}</td>
+                                <td colspan="3" class="text-right font-weight-bold">@{{ total | currency }}</td>
                             </tr>
                             <tr>
                                 <td colspan="1" class="font-weight-bold">Tunai</td>
@@ -119,7 +119,7 @@
                             </tr>
                             <tr>
                                 <td colspan="1" class="font-weight-bold">Kembalian</td>
-                                <td colspan="3" class="text-right font-weight-bold"></td>
+                                <td colspan="3" class="text-right font-weight-bold">@{{ totalChange | currency }}</td>
                             </tr>
                             <tr>
                                 <td colspan="4">
@@ -130,9 +130,15 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('order.store') }}" class="btn btn-info btn-sm float-right">
-                        Bayar
-                    </a>
+                    <form action="{{ route('order.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="total" v-model="total">
+                        <input type="hidden" name="cash" v-model="cash">
+                        <input type="hidden" name="total_change" v-model="totalChange">
+                        <button type="submit" class="btn btn-info btn-sm float-right">
+                            Bayar
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

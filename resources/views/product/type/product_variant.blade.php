@@ -42,11 +42,11 @@
                     <span class="0"></span>
                     <div class="col-md-7 pt-3">
                         <label for="">Item</label>
-                        <input type="text" name="products[{{ $key }}][items][0][name]" id="item" class="form-control" required>
+                        <input type="text" name="products[{{ $key }}][items][0][name]" id="item" class="form-control">
                     </div>
                     <div class="col-md-2 pt-3">
                         <label for="">Recipe</label>
-                        <input type="number" name="products[{{ $key }}][items][0][recipe]" id="recipe" class="form-control" required>
+                        <input type="number" name="products[{{ $key }}][items][0][recipe]" id="recipe" class="form-control">
                     </div>
                     <div class="col-md-2 pt-3">
                         <label for="">Unit</label>

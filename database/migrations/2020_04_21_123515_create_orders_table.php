@@ -18,6 +18,8 @@ class CreateOrdersTable extends Migration
             $table->string('user');
             $table->string('invoice');
             $table->decimal('total', 19, 2);
+            $table->decimal('cash', 19, 2);
+            $table->decimal('total_change', 19, 2);
             $table->timestamps();
         });
     }

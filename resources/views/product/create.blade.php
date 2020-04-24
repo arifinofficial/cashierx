@@ -33,11 +33,11 @@ $('.add-list').click(function(e){
     <span class="`+count+`"></span>
     <div class="col-md-7 pt-3">
         <label for="">Item</label>
-        <input type="text" name="products[`+buttonIndex+`][items][`+count+`][name]" id="item" class="form-control" required>
+        <input type="text" name="products[`+buttonIndex+`][items][`+count+`][name]" id="item" class="form-control">
     </div>
     <div class="col-md-2 pt-3">
         <label for="">Recipe</label>
-        <input type="number" name="products[`+buttonIndex+`][items][`+count+`][recipe]" id="recipe" class="form-control" required>
+        <input type="number" name="products[`+buttonIndex+`][items][`+count+`][recipe]" id="recipe" class="form-control">
     </div>
     <div class="col-md-2 pt-3">
         <label for="">Unit</label>
@@ -73,11 +73,11 @@ $('#add-list').click(function(e){
     var html = `
     <div class="col-md-7 pt-3">
         <label for="">Item</label>
-        <input type="text" name="items[`+count+`][name]" id="item" class="form-control" required>
+        <input type="text" name="items[`+count+`][name]" id="item" class="form-control">
     </div>
     <div class="col-md-2 pt-3">
         <label for="">Recipe</label>
-        <input type="number" name="items[`+count+`][recipe]" id="recipe" class="form-control" required>
+        <input type="number" name="items[`+count+`][recipe]" id="recipe" class="form-control">
     </div>
     <div class="col-md-2 pt-3">
         <label for="">Unit</label>

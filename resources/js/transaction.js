@@ -30,6 +30,12 @@ new Vue({
             if (this.product.id) {
                 this.getProduct();
             }
+        },
+        'listCart': function(){
+            this.totalCart();
+        },
+        'cash': function(){
+            this.calculate();
         }
     },
     mounted() {
@@ -56,7 +62,7 @@ new Vue({
             })
 
             return total;
-        },
+        }
     },
     methods: {
         getProduct(){
@@ -68,12 +74,7 @@ new Vue({
         addToCart(){
             this.submitCart = true;
 
-            if (this.cart.qty > this.product.qty) {
-                console.log('Stock dari tidak memenuhi request.');
-                // msg
-            } else {
-                console.log('success');
-                 axios.post('/api/cart', this.cart)
+            axios.post('/api/cart', this.cart)
             .then((response) => {
                 setTimeout(() => {
                     this.listCart = response.data,
@@ -94,7 +95,6 @@ new Vue({
             .catch((error) => {
 
             })
-            }
         },
         getCart(){
             axios.get('/api/cart')
@@ -128,6 +128,24 @@ new Vue({
                     })
                 }
             })
+        },
+        totalCart()
+        {
+            let keys = Object.keys(this.listCart);
+            let total = 0;          
+            keys.forEach(key => {
+                let item = this.listCart[key];
+                
+                total += (parseInt(item.price) * item.qty)
+            })
+
+            this.total = total;
+        },
+        calculate()
+        {
+            let change = this.cash - this.total;
+
+            this.totalChange = change;
         }
     }
 })

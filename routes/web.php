@@ -17,7 +17,7 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes();
@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/transaction', 'OrderController@addOrder')->name('order.transaksi');
-    Route::get('/transaction/checkout', 'OrderController@storeOrder')->name('order.store');
+    Route::post('/transaction/checkout', 'OrderController@storeOrder')->name('order.store');
 
     Route::get('/api/product/{id}', 'OrderController@getProduct');
     Route::post('/api/cart', 'OrderController@addToCart');
@@ -53,7 +53,9 @@ Route::group(['middleware' => 'auth'], function () {
             $printer = 'EPSON TM-U220 Receipt'; // Nama Printer yang di sharing
             $connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
             $printer = new Printer($connector);
-            $printer -> text("Email : Halo" . "\n");
+            $printer->initialize();
+            $printer -> text("Email : Halo \n");
+            $printer -> text("Testing : Test \n");
             $printer -> cut();
             $printer -> close();
         } catch (Exception $e) {

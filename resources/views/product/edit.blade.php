@@ -66,6 +66,29 @@
                             <label for="exampleFormControlFile1">Foto Produk</label>
                             <input type="file" class="form-control-file" name="picture" id="exampleFormControlFile1">
                         </div>
+                        @if (count($productItems) == 0)
+                        <div class="form-row mt-3 mt-md-3" id="item-wrapper">
+                            <div class="col-md-7 pt-3">
+                                <label for="">Item</label>
+                                <input type="text" name="items[0][name]" id="item" class="form-control">
+                            </div>
+                            <div class="col-md-2 pt-3">
+                                <label for="">Recipe</label>
+                                <input type="number" name="items[0][recipe]" id="recipe" class="form-control">
+                            </div>
+                            <div class="col-md-2 pt-3">
+                                <label for="">Unit</label>
+                                <select name="items[0][unit]" id="unit_id" class="form-control unit count-0">
+                                    @foreach ($units as $id => $item)
+                                        <option value="{{ $id }}">{{ $item }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-1 pt-3 d-flex align-items-end">
+                                <button class="btn btn-danger w-100"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                        @else
                         <div class="form-row mt-3 mt-md-3" id="item-wrapper">
                             @foreach ($productItems as $key => $productItem)
                             <div class="col-md-7 pt-3">
@@ -89,6 +112,7 @@
                             </div>
                             @endforeach
                         </div>
+                        @endif
                         <div class="form-group mt-4 d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             <button class="btn btn-info" id="add-list"><i class="fas fa-plus"></i></button>

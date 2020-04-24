@@ -63,12 +63,14 @@ class ProductController extends Controller
                 ]);
 
                 foreach ($product['items'] as $item) {
-                    ProductItem::create([
-                        'product_id' => $saveProduct->id,
-                        'unit_id' => $item['unit'],
-                        'name' => $item['name'],
-                        'recipe' => $item['recipe']
-                    ]);
+                    if ($item['name'] != null) {
+                        ProductItem::create([
+                            'product_id' => $saveProduct->id,
+                            'unit_id' => $item['unit'],
+                            'name' => $item['name'],
+                            'recipe' => $item['recipe']
+                        ]);
+                    }
                 }
             }
         } else {
@@ -84,7 +86,7 @@ class ProductController extends Controller
                 'picture' => $request->hasFile('picture') ? $savedImg : null,
             ]);
     
-            if ($request->has('items')) {
+            if ($request->has('items') && $request->items[0]['name'] != null) {
                 foreach ($request->items as $key => $item) {
                     ProductItem::create([
                         'product_id' => $product->id,
@@ -134,6 +136,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $main_product, $product)
     {
+        dd($request->all());
         $this->validate($request, [
             'name' => 'required|string|min:2',
             'sku' => 'required|alpha_dash|unique:products,sku,'.$product,

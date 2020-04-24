@@ -14427,6 +14427,12 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
       if (this.product.id) {
         this.getProduct();
       }
+    },
+    'listCart': function listCart() {
+      this.totalCart();
+    },
+    'cash': function cash() {
+      this.calculate();
     }
   },
   mounted: function mounted() {
@@ -14468,26 +14474,20 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
       var _this4 = this;
 
       this.submitCart = true;
-
-      if (this.cart.qty > this.product.qty) {
-        console.log('Stock dari tidak memenuhi request.'); // msg
-      } else {
-        console.log('success');
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/cart', this.cart).then(function (response) {
-          setTimeout(function () {
-            _this4.listCart = response.data, _this4.cart.product_id = '', _this4.cart.qty = 1;
-            _this4.product = {
-              id: '',
-              qty: '',
-              price: '',
-              name: '',
-              picture: ''
-            };
-            $('#product_id').val('');
-            _this4.submitCart = false;
-          }, 2000);
-        })["catch"](function (error) {});
-      }
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/cart', this.cart).then(function (response) {
+        setTimeout(function () {
+          _this4.listCart = response.data, _this4.cart.product_id = '', _this4.cart.qty = 1;
+          _this4.product = {
+            id: '',
+            qty: '',
+            price: '',
+            name: '',
+            picture: ''
+          };
+          $('#product_id').val('');
+          _this4.submitCart = false;
+        }, 2000);
+      })["catch"](function (error) {});
     },
     getCart: function getCart() {
       var _this5 = this;
@@ -14524,6 +14524,21 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
           });
         }
       });
+    },
+    totalCart: function totalCart() {
+      var _this7 = this;
+
+      var keys = Object.keys(this.listCart);
+      var total = 0;
+      keys.forEach(function (key) {
+        var item = _this7.listCart[key];
+        total += parseInt(item.price) * item.qty;
+      });
+      this.total = total;
+    },
+    calculate: function calculate() {
+      var change = this.cash - this.total;
+      this.totalChange = change;
     }
   }
 });

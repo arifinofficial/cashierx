@@ -46,9 +46,9 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Tax & Service</span></a>
+        <a class="nav-link" href="{{ route('order.transaksi') }}">
+            <i class="fas fa-cash-register"></i>
+            <span>Kasir</span></a>
     </li>
 
     <!-- Divider -->
@@ -82,7 +82,7 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
             aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
+            <span>Report</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
