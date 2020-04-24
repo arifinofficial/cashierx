@@ -118,7 +118,7 @@ class OrderController extends Controller
             // TESTING
 
             $ip = '192.168.1.15';
-            $printer = '58mm Series Printerss';
+            $printer = '58mm Series Printer';
             $connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
             $printer = new Printer($connector);
 
