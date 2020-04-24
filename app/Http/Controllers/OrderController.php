@@ -117,7 +117,7 @@ class OrderController extends Controller
 
             // TESTING
 
-            $ip = '192.168.1.15';
+            $ip = '192.168.100.45';
             $printer = '58mm Series Printer';
             $connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
             $printer = new Printer($connector);
@@ -126,7 +126,7 @@ class OrderController extends Controller
             {
                 // Mengatur lebar setiap kolom (dalam satuan karakter)
                 $lebar_kolom_1 = 12;
-                $lebar_kolom_2 = 8;
+                $lebar_kolom_2 = 3;
                 $lebar_kolom_3 = 8;
                 $lebar_kolom_4 = 9;
      
@@ -161,6 +161,7 @@ class OrderController extends Controller
      
                     // Menggabungkan kolom tersebut menjadi 1 baris dan ditampung ke variabel hasil (ada 1 spasi disetiap kolom)
                     $hasilBaris[] = $hasilKolom1 . " " . $hasilKolom2 . " " . $hasilKolom3 . " " . $hasilKolom4;
+                    dd($hasilBaris);
                 }
      
                 // Hasil yang berupa array, disatukan kembali menjadi string dan tambahkan \n disetiap barisnya.
@@ -180,6 +181,7 @@ class OrderController extends Controller
  
             // Membuat tabel
             $printer->initialize(); // Reset bentuk/jenis teks
+            $printer->setFont(Printer::FONT_B);
             $printer->text("--------------------------------\n");
             $printer->text(buatBaris4Kolom("Items", "Qty", "Harga", "Sub"));
             $printer->text("--------------------------------\n");
