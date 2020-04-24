@@ -117,8 +117,8 @@ class OrderController extends Controller
 
             // TESTING
 
-            $ip = '192.168.1.15'; // IP Komputer kita atau printer lain yang masih satu jaringan
-            $printer = '58mm Series Printerss'; // Nama Printer yang di sharing
+            $ip = '192.168.1.15';
+            $printer = '58mm Series Printerss';
             $connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
             $printer = new Printer($connector);
 
@@ -168,20 +168,20 @@ class OrderController extends Controller
             }
 
             $printer->initialize();
-            $printer->selectPrintMode(Escpos\Printer::MODE_DOUBLE_HEIGHT); // Setting teks menjadi lebih besar
-        $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER); // Setting teks menjadi rata tengah
-        $printer->text("Nama Toko\n");
+            $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT); // Setting teks menjadi lebih besar
+            $printer->setJustification(Printer::JUSTIFY_CENTER); // Setting teks menjadi rata tengah
+            $printer->text("Goud Koffie\n");
             $printer->text("\n");
  
             // Data transaksi
             $printer->initialize();
-            $printer->text("Kasir : Badar Wildanie\n");
-            $printer->text("Waktu : 13-10-2019 19:23:22\n");
+            $printer->text("Kasir :".$order->user."\n");
+            $printer->text("Waktu :".date($order->created_at)."\n");
  
             // Membuat tabel
-        $printer->initialize(); // Reset bentuk/jenis teks
-        $printer->text("----------------------------------------\n");
-            $printer->text(buatBaris4Kolom("Barang", "qty", "Harga", "Subtotal"));
+            $printer->initialize(); // Reset bentuk/jenis teks
+            $printer->text("----------------------------------------\n");
+            $printer->text(buatBaris4Kolom("Items", "Qty", "Harga", "Sub"));
             $printer->text("----------------------------------------\n");
             $printer->text(buatBaris4Kolom("Makaroni 250gr", "2pcs", "15.000", "30.000"));
             $printer->text(buatBaris4Kolom("Telur", "2pcs", "5.000", "10.000"));
@@ -192,9 +192,9 @@ class OrderController extends Controller
  
             // Pesan penutup
             $printer->initialize();
-            $printer->setJustification(Escpos\Printer::JUSTIFY_CENTER);
-            $printer->text("Terima kasih telah berbelanja\n");
-            $printer->text("http://badar-blog.blogspot.com\n");
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->text("Terimakasih.\n");
+            $printer->text("www.goudkoffie.co\n");
  
             $printer->feed(5); // mencetak 5 baris kosong agar terangkat (pemotong kertas saya memiliki jarak 5 baris dari toner)
             $printer->close();
