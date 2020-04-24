@@ -101,7 +101,7 @@ class OrderController extends Controller
                 'cash' => $request->cash,
                 'total_change' => $request->total_change
             ]);
-            dd(number_format($order->total));
+            
             foreach ($result as $key => $row) {
                 $order->orderDetail()->create([
                     'product_id' => $key,
