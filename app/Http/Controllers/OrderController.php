@@ -161,7 +161,6 @@ class OrderController extends Controller
      
                     // Menggabungkan kolom tersebut menjadi 1 baris dan ditampung ke variabel hasil (ada 1 spasi disetiap kolom)
                     $hasilBaris[] = $hasilKolom1 . " " . $hasilKolom2 . " " . $hasilKolom3 . " " . $hasilKolom4;
-                    dd($hasilBaris);
                 }
      
                 // Hasil yang berupa array, disatukan kembali menjadi string dan tambahkan \n disetiap barisnya.
@@ -182,13 +181,13 @@ class OrderController extends Controller
             // Membuat tabel
             $printer->initialize(); // Reset bentuk/jenis teks
             $printer->setFont(Printer::FONT_B);
-            $printer->text("--------------------------------\n");
+            $printer->text("----------------------------------------\n");
             $printer->text(buatBaris4Kolom("Items", "Qty", "Harga", "Sub"));
-            $printer->text("--------------------------------\n");
+            $printer->text("----------------------------------------\n");
             $printer->text(buatBaris4Kolom("Makaroni 250gr", "2pcs", "15.000", "30.000"));
             $printer->text(buatBaris4Kolom("Telur", "2pcs", "5.000", "10.000"));
             $printer->text(buatBaris4Kolom("Tepung terigu", "1pcs", "8.200", "16.400"));
-            $printer->text("--------------------------------\n");
+            $printer->text("----------------------------------------\n");
             $printer->text('Total '.number_format($order->total)."\n");
             $printer->text('Tunai '.number_format($order->cash)."\n");
             $printer->text('Kembalian '.number_format($order->total_change)."\n");
@@ -196,6 +195,7 @@ class OrderController extends Controller
  
             // Pesan penutup
             $printer->initialize();
+            $printer->setFont(Printer::FONT_A);
             $printer->setJustification(Printer::JUSTIFY_CENTER);
             $printer->text("Terimakasih.\n");
             $printer->text("www.goudkoffie.co\n");
