@@ -115,6 +115,8 @@ class OrderController extends Controller
             
             DB::commit();
 
+            $orderDetails = $order->orderDetail()->get();
+
             // TESTING
 
             $ip = '192.168.100.45';
@@ -176,6 +178,7 @@ class OrderController extends Controller
             // Data transaksi
             $printer->initialize();
             $printer->text("Kasir :".$order->user."\n");
+            $printer->text("Invoice :".$order->invoice."\n");
             $printer->text("Waktu :".date($order->created_at)."\n");
  
             // Membuat tabel
@@ -184,9 +187,9 @@ class OrderController extends Controller
             $printer->text("----------------------------------------\n");
             $printer->text(buatBaris4Kolom("Items", "Qty", "Harga", "Sub"));
             $printer->text("----------------------------------------\n");
-            $printer->text(buatBaris4Kolom("Makaroni 250gr", "2pcs", "15.000", "30.000"));
-            $printer->text(buatBaris4Kolom("Telur", "2pcs", "5.000", "10.000"));
-            $printer->text(buatBaris4Kolom("Tepung terigu", "1pcs", "8.200", "16.400"));
+            foreach ($orderDetails as $key => $value) {
+                $printer->text(buatBaris4Kolom($value->product_name, $value->qty, number_format($value->price), number_format($value->price * $value->qty)));
+            }
             $printer->text("----------------------------------------\n");
             $printer->text('Total '.number_format($order->total)."\n");
             $printer->text('Tunai '.number_format($order->cash)."\n");
