@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\MainProduct;
-use App\Category;
-use App\Variant;
+use App\PrinterSetting;
 
-class MainProductController extends Controller
+class PrinterSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,9 @@ class MainProductController extends Controller
      */
     public function index()
     {
-        $mainProducts = MainProduct::all();
+        $printerSetting = PrinterSetting::first();
 
-        return view('main_product.index', compact('mainProducts'));
+        return view('printer_setting.index', compact('printerSetting'));
     }
 
     /**
@@ -28,10 +26,7 @@ class MainProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('name', 'id');
-        $variants = Variant::pluck('name', 'id');
-
-        return view('main_product.create', compact('categories', 'variants'));
+        //
     }
 
     /**
@@ -42,24 +37,14 @@ class MainProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $this->validate($request, [
-            'name' => 'required|string|min:2',
-            'category_id' => 'required|integer',
+            'printer_name' => 'required|string|min:1',
+            'printer_ip' => 'required|string',
         ]);
 
-        $mainProduct = MainProduct::create([
-            'name' => $request->name,
-            'category_id' => $request->category_id,
-            'is_variant' => ($request->has('variant_id') ? 1 : 0)
-        ]);
-
-        if ($request->has('variant_id')) {
-            $mainProduct->variants()->attach($request->variant_id);
-        }
-
-        return redirect()->route('product.main-product.product.create', [$mainProduct->id]);
+        PrinterSetting::create($request->all());
+        
+        return redirect()->back();
     }
 
     /**
@@ -70,11 +55,7 @@ class MainProductController extends Controller
      */
     public function show($id)
     {
-        $mainProducts = MainProduct::findOrFail($id)->products()->get();
-
-        // dd($mainProducts[0]->mainProduct->id);
-
-        return view('main_product.show', compact('mainProducts'));
+        //
     }
 
     /**
@@ -108,8 +89,6 @@ class MainProductController extends Controller
      */
     public function destroy($id)
     {
-        $model = MainProduct::findOrFail($id);
-
-        $model->delete();
+        //
     }
 }

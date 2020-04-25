@@ -55,8 +55,7 @@ class ProductController extends Controller
                 $saveProduct = Product::create([
                     'main_product_id' => $request->main_product_id,
                     'name' => $request->name,
-                    'sku' => $request->sku.'-'.Str::slug($product['variant'], '-'),
-                    'qty' => $product['qty'],
+                    'is_active' => isset($product['is_active']) ? 0 : 1,
                     'variant' => $product['variant'],
                     'picture' => isset($product['picture']) ? $savedImg : null,
                     'price' => $product['price']
@@ -73,6 +72,8 @@ class ProductController extends Controller
                     }
                 }
             }
+
+            return redirect()->route('product.main-product.index');
         } else {
             if ($request->hasFile('picture')) {
                 $savedImg = $request->file('picture')->store('products');
@@ -80,8 +81,7 @@ class ProductController extends Controller
             $product = Product::create([
                 'main_product_id' => $request->main_product_id,
                 'name' => $request->name,
-                'sku' => $request->sku,
-                'qty' => $request->qty,
+                'is_active' => isset($request->is_active) ? 0 : 1,
                 'price' => $request->price,
                 'picture' => $request->hasFile('picture') ? $savedImg : null,
             ]);
@@ -96,6 +96,8 @@ class ProductController extends Controller
                     ]);
                 }
             }
+
+            return redirect()->route('product.main-product.index');
         }
     }
 
@@ -136,12 +138,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, $main_product, $product)
     {
-        dd($request->all());
+        if (!$request->has('is_active')) {
+            $request['is_active'] = '1';
+        }
+
         $this->validate($request, [
             'name' => 'required|string|min:2',
-            'sku' => 'required|alpha_dash|unique:products,sku,'.$product,
             'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'qty' => 'required|integer|min:0',
             'picture' => 'nullable|mimes:jpeg,jpg,png|max:10240'
         ]);
 
@@ -163,7 +166,7 @@ class ProductController extends Controller
 
         $product->update($request->except('picture'));
 
-        if ($request->has('items')) {
+        if ($request->has('items') && $request->items[0]['name'] != null) {
             $product->productItems()->delete();
 
             foreach ($request->items as $key => $item) {

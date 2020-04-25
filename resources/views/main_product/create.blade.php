@@ -23,15 +23,6 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="col-md-6 pt-3 pt-md-0">
-                                <label for="">SKU</label>
-                                <input type="text" name="sku" id="sku" value="{{ old('sku') }}" class="{{ $errors->has('sku') ? 'form-control is-invalid' : 'form-control' }}">
-                                @if ($errors->has('sku'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('sku') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-6 pt-3 pt-md-3">

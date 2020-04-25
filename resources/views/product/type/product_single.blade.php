@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header text-primary">{{ $mainProduct->name }} - {{ $mainProduct->sku }}</div>
+    <div class="card-header text-primary">{{ $mainProduct->name }}</div>
 
     <div class="card-body">
         <form action="{{ route('product.main-product.product.store', [$mainProduct->id]) }}" method="POST" enctype="multipart/form-data">
@@ -7,7 +7,6 @@
             <input type="hidden" name="main_product_id" value="{{ $mainProduct->id }}">
             <input type="hidden" name="name" value="{{ $mainProduct->name }}">
             <input type="hidden" name="is_variant" value="{{ $mainProduct->is_variant }}">
-            <input type="hidden" name="sku" value="{{ $mainProduct->sku }}">
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="">Harga</label>
@@ -23,19 +22,16 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-md-6 pt-3 pt-md-0">
-                    <label for="">Qty</label>
-                    <input type="number" min="0" name="qty" id="qty" value="{{ old('qty') }}" class="{{ $errors->has('qty') ? 'form-control is-invalid' : 'form-control' }}">
-                    @if ($errors->has('qty'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('qty') }}</strong>
-                        </span>
-                    @endif
-                </div>
             </div>
             <div class="form-group mt-3 mt-md-3">
                 <label for="exampleFormControlFile1">Foto Produk</label>
                 <input type="file" class="form-control-file" name="picture" id="exampleFormControlFile1">
+            </div>
+            <div class="form-group mt-3 mt-md-3">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="is_active" value="0" id="exampleCheck1">
+                    <label class="form-check-label" for="">Inactive</label>
+                </div>
             </div>
             <div class="form-row mt-3 mt-md-3" id="item-wrapper">
                 <div class="col-md-7 pt-3">

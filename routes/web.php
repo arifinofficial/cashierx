@@ -26,6 +26,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('/setting', 'SettingController');
+    Route::resource('/setting-printer', 'PrinterSettingController');
+    Route::resource('/user', 'UserController');
+    Route::resource('/role', 'RoleController');
+    Route::get('/order-finish', function () {
+        return view('order.finish');
+    })->name('order.finish');
+
     Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
         Route::resource('/category', 'CategoryController');
         Route::resource('/main-product', 'MainProductController');
@@ -43,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/cart', 'OrderController@getCart');
     Route::delete('/api/cart/{id}', 'OrderController@removeCart');
 
+    Route::get('/api/datatable/user', 'UserController@dataTable')->name('api.datatable.user');
     Route::get('/api/datatable/category', 'CategoryController@dataTable')->name('api.datatable.category');
     Route::get('/api/datatable/unit', 'UnitController@dataTable')->name('api.datatable.unit');
     Route::get('/api/datatable/variant', 'VariantController@dataTable')->name('api.datatable.variant');

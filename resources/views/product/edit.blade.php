@@ -24,17 +24,6 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="col-md-6 pt-3 pt-md-0">
-                                <label for="">SKU</label>
-                                <input type="text" name="sku" id="sku" value="{{ $product->sku }}" class="{{ $errors->has('sku') ? 'form-control is-invalid' : 'form-control' }}">
-                                @if ($errors->has('sku'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('sku') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-row mt-3 mt-md-3">
                             <div class="col-md-6">
                                 <label for="">Harga</label>
                                 <div class="input-group">
@@ -49,14 +38,15 @@
                                     @endif
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-row mt-3 mt-md-3">
                             <div class="col-md-6 pt-3 pt-md-0">
-                                <label for="">Qty</label>
-                                <input type="number" name="qty" id="qty" value="{{ $product->qty }}" class="{{ $errors->has('qty') ? 'form-control is-invalid' : 'form-control' }}">
-                                @if ($errors->has('qty'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('qty') }}</strong>
-                                    </span>
-                                @endif
+                                <div class="form-group mt-3 mt-md-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="is_active" value="0" id="exampleCheck1" {{ $product->is_active != 1 ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="">Inactive</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group mt-3 mt-md-3">

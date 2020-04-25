@@ -17,12 +17,13 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->foreignId('main_product_id')->unsigned();
             $table->string('name');
-            $table->string('sku');
+            $table->string('sku')->nullable();
             $table->string('picture')->nullable();
             $table->string('variant')->nullable();
-            $table->integer('qty')->unsigned();
+            $table->boolean('is_active')->nullable()->default(1);
             $table->decimal('price', 19, 2);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('main_product_id')->references('id')->on('main_products')->onDelete('cascade');
         });

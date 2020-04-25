@@ -21,16 +21,12 @@
                                         <td>{{ $mainProduct->id }}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">SKU</th>
-                                        <td>{{ $mainProduct->sku }}</td>
-                                    </tr>
-                                    <tr>
                                         <th scope="row">Price</th>
                                         <td>{{ $mainProduct->price }}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Qty</th>
-                                        <td>{{ $mainProduct->qty }}</td>
+                                        <th scope="row">Status</th>
+                                        <td>{{ $mainProduct->is_active != 1 ? 'Tidak Aktif' : 'Aktif' }}</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -17,9 +17,10 @@ class CreateMainProductsTable extends Migration
             $table->id();
             $table->foreignId('category_id')->unsigned();
             $table->string('name');
-            $table->string('sku');
+            $table->string('sku')->nullable();
             $table->boolean('is_variant')->default(0);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });

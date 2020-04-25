@@ -4,6 +4,7 @@ namespace App\Data;
 
 use App\MainProduct;
 use App\Setting;
+use App\PrinterSetting;
 
 class Core
 {
@@ -33,6 +34,13 @@ class Core
     public function getAllSettings()
     {
         $model = Setting::first();
+
+        return $model;
+    }
+
+    public function printerSetting()
+    {
+        $model = PrinterSetting::first();
 
         return $model;
     }

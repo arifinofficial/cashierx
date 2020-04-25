@@ -10,7 +10,6 @@ new Vue({
     data: {
         product: {
             id: '',
-            qty: '',
             price: '',
             name: '',
             picture: '',
