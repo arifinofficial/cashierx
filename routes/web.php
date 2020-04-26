@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/product/{id}', 'OrderController@getProduct');
     Route::post('/api/cart', 'OrderController@addToCart');
     Route::get('/api/cart', 'OrderController@getCart');
+    Route::get('/api/search', 'OrderController@search');
+    Route::get('/api/products', 'OrderController@allProducts');
     Route::delete('/api/cart/{id}', 'OrderController@removeCart');
 
     Route::get('/api/datatable/user', 'UserController@dataTable')->name('api.datatable.user');

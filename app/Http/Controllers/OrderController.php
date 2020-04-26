@@ -17,6 +17,29 @@ class OrderController extends Controller
         $products = Product::orderBy('created_at', 'DESC')->get();
 
         return view('order.add', compact('products'));
+        // return response()->json($products, 200);
+    }
+
+    public function search()
+    {
+        $keyword = request()->q;
+
+        $products = Product::where('name', 'LIKE', '%'.$keyword.'%')->with([
+            'mainProduct' => function ($query) {
+                return $query->with(['category']);
+            }])->get();
+
+        return response()->json($products, 200);
+    }
+
+    public function allProducts()
+    {
+        $products = Product::with([
+            'mainProduct' => function ($query) {
+                return $query->with(['category']);
+            }])->orderBy('created_at', 'DESC')->get();
+
+        return response()->json($products, 200);
     }
 
     public function getProduct($id)

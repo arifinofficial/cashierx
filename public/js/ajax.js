@@ -1,1 +1,233 @@
-!function(t){var e={};function a(n){if(e[n])return e[n].exports;var o=e[n]={i:n,l:!1,exports:{}};return t[n].call(o.exports,o,o.exports,a),o.l=!0,o.exports}a.m=t,a.c=e,a.d=function(t,e,n){a.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:n})},a.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},a.t=function(t,e){if(1&e&&(t=a(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var n=Object.create(null);if(a.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var o in t)a.d(n,o,function(e){return t[e]}.bind(null,o));return n},a.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return a.d(e,"a",e),e},a.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},a.p="/",a(a.s=59)}({59:function(t,e,a){t.exports=a(60)},60:function(t,e){$("body").on("click",".modal-show",(function(t){t.preventDefault();var e=$(this),a=e.attr("href"),n=e.attr("title");$("#modal-title").text(n),$("#btn-submit").text(e.hasClass("edit")?"Ubah":"Tambah"),$("#btn-submit").show(),$.ajax({url:a,dataType:"html",success:function(t){$("#modal-body").html(t)}}),$("#modalForm").modal("show")})),$("#btn-submit").click((function(t){t.preventDefault();var e=$("#modal-body form"),a=e.attr("action"),n=null==$("input[name=_method]").val()?"POST":"PUT";e.find(".invalid-feedback").remove(),e.find(".form-control").removeClass("is-invalid"),$.ajax({url:a,method:n,data:e.serialize(),success:function(t){e.trigger("reset"),$("#modalForm").modal("hide"),0!==$("#dataTable").length&&$("#dataTable").DataTable().ajax.reload(),swal({title:"Sukses!",text:"Data berhasil disimpan.",icon:"success",timer:3e3})},error:function(t){var e=t.responseJSON;0==$.isEmptyObject(e)&&$.each(e.errors,(function(t,e){$("#"+t).closest(".form-control").addClass("is-invalid").after('<span class="invalid-feedback">'+e+"</span>")}))}})})),$("body").on("click",".action-show",(function(t){t.preventDefault();var e=$(this),a=e.attr("href"),n=e.attr("title");console.log(a),$("#modal-title").text(n),$("#btn-submit").hide(),$.ajax({url:a,dataType:"html",success:function(t){$("#modal-body").html(t)}}),$("#modalForm").modal("show")})),$("body").on("click",".action-delete",(function(t){t.preventDefault();var e=$(this),a=e.attr("data-name"),n=e.attr("href"),o=$('meta[name="csrf-token"]').attr("content");swal({text:"Apakah anda yakin menghapus data "+a+"?",buttons:{cancel:!0,confirm:!0}}).then((function(t){t&&$.ajax({url:n,type:"POST",data:{_method:"DELETE",_token:o},success:function(t){console.log(t),0!==$("#dataTable").length&&$("#dataTable").DataTable().ajax.reload(),swal({title:"Sukses!",text:"Data berhasil dihapus.",icon:"success",timer:3e3})},error:function(t){swal({title:"Error!",text:"Data gagal dihapus.",icon:"error",timer:3e3})}})}))}))}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/js/ajax.js":
+/*!******************************!*\
+  !*** ./resources/js/ajax.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// Modal Show
+$('body').on('click', '.modal-show', function (event) {
+  event.preventDefault();
+  var me = $(this),
+      url = me.attr('href'),
+      title = me.attr('title');
+  $('#modal-title').text(title);
+  $('#btn-submit').text(me.hasClass('edit') ? 'Ubah' : 'Tambah');
+  $('#btn-submit').show();
+  $.ajax({
+    url: url,
+    dataType: 'html',
+    success: function success(response) {
+      $('#modal-body').html(response);
+    }
+  });
+  $('#modalForm').modal('show');
+}); // Ajax Post Data
+
+$('#btn-submit').click(function (event) {
+  event.preventDefault();
+  var form = $('#modal-body form'),
+      url = form.attr('action'),
+      method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+  form.find('.invalid-feedback').remove();
+  form.find('.form-control').removeClass('is-invalid');
+  $.ajax({
+    url: url,
+    method: method,
+    data: form.serialize(),
+    success: function success(response) {
+      form.trigger('reset');
+      $('#modalForm').modal('hide');
+
+      if ($('#dataTable').length !== 0) {
+        $('#dataTable').DataTable().ajax.reload();
+      }
+
+      swal({
+        title: 'Sukses!',
+        text: 'Data berhasil disimpan.',
+        icon: 'success',
+        timer: 3000
+      });
+    },
+    error: function error(xhr) {
+      var res = xhr.responseJSON;
+
+      if ($.isEmptyObject(res) == false) {
+        $.each(res.errors, function (key, value) {
+          $('#' + key).closest('.form-control').addClass('is-invalid').after('<span class="invalid-feedback">' + value + '</span>');
+        });
+      }
+    }
+  });
+}); // Modal Show for Action View
+
+$('body').on('click', '.action-show', function (event) {
+  event.preventDefault();
+  var me = $(this),
+      url = me.attr('href'),
+      title = me.attr('title');
+  console.log(url);
+  $('#modal-title').text(title);
+  $('#btn-submit').hide();
+  $.ajax({
+    url: url,
+    dataType: 'html',
+    success: function success(response) {
+      $('#modal-body').html(response);
+    }
+  });
+  $('#modalForm').modal('show');
+}); // Ajax Delete
+
+$('body').on('click', '.action-delete', function (event) {
+  event.preventDefault();
+  var me = $(this),
+      name = me.attr('data-name'),
+      url = me.attr('href'),
+      csrf_token = $('meta[name="csrf-token"]').attr('content');
+  swal({
+    text: 'Apakah anda yakin menghapus data ' + name + '?',
+    buttons: {
+      cancel: true,
+      confirm: true
+    }
+  }).then(function (result) {
+    if (result) {
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+          '_method': 'DELETE',
+          '_token': csrf_token
+        },
+        success: function success(response) {
+          console.log(response);
+
+          if ($('#dataTable').length !== 0) {
+            $('#dataTable').DataTable().ajax.reload();
+          }
+
+          swal({
+            title: 'Sukses!',
+            text: 'Data berhasil dihapus.',
+            icon: 'success',
+            timer: 3000
+          });
+        },
+        error: function error(xhr) {
+          swal({
+            title: 'Error!',
+            text: 'Data gagal dihapus.',
+            icon: 'error',
+            timer: 3000
+          });
+        }
+      });
+    }
+  });
+});
+
+/***/ }),
+
+/***/ 1:
+/*!************************************!*\
+  !*** multi ./resources/js/ajax.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /Volumes/Developments/Website/cashierx/resources/js/ajax.js */"./resources/js/ajax.js");
+
+
+/***/ })
+
+/******/ });
