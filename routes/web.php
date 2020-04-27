@@ -29,6 +29,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/setting-printer', 'PrinterSettingController');
     Route::resource('/user', 'UserController');
     Route::resource('/role', 'RoleController');
+    Route::get('/role-permission', 'RoleController@rolePermission')->name('roles.permission.index');
+    Route::post('/role-permission', 'RoleController@storePermission')->name('roles.permission.store');
+    Route::put('/role-permission/{role}', 'RoleController@setRolePermission')->name('roles.setRolePermission');
+
     Route::get('/order-finish', function () {
         return view('order.finish');
     })->name('order.finish');

@@ -80,8 +80,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $model = User::findOrFail($id);
+        $roles = Role::orderBy('name', 'ASC')->get();
 
-        return view('user.form', compact('model'));
+        return view('user.form', compact('model', 'roles'));
     }
 
     /**
@@ -104,6 +105,7 @@ class UserController extends Controller
         $request['password'] = $request->get('password') ? Hash::make($request->get('password')) : $user->password;
 
         $user->update($request->all());
+        $user->syncRoles($request->role);
 
         return $user;
     }
