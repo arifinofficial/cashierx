@@ -31,6 +31,9 @@
             </div>
         @endforeach
     </div>
+    <div class="d-flex justify-content-center mt-4">
+        {{ $mainProducts->links() }}
+    </div>
 </div>
 @endsection
 

@@ -142,8 +142,6 @@ class OrderController extends Controller
 
             // TESTING
 
-            // $ip = '192.168.100.45';
-            // $printer = '58mm Series Printer';
             $connector = new WindowsPrintConnector("smb://" . core()->printerSetting()->printer_ip . "/" . core()->printerSetting()->printer_name);
             $printer = new Printer($connector);
 
@@ -188,7 +186,7 @@ class OrderController extends Controller
             $printer->text("\n");
  
             $printer->initialize();
-            $printer->text("Kasir : Kasir 1 \n");
+            $printer->text("Kasir : ".$order->user."\n");
             $printer->text("Invoice :".$order->invoice."\n");
             $printer->text("Waktu :".date($order->created_at)."\n");
  
@@ -222,7 +220,7 @@ class OrderController extends Controller
             return redirect()->route('order.finish', compact('orderTotal', 'orderCash', 'orderTotalChange'))->cookie(Cookie::forget('cart'));
         } catch (\Throwable $th) {
             DB::rollback();
-            throw $th;
+            return redirect()->back()->with(['error' => 'Error! Silahkan Coba Kembali.']);
         }
     }
 
@@ -234,8 +232,8 @@ class OrderController extends Controller
         if ($order->count() > 0) {
             $order = $order->first();
             $explode = explode('-', $order->invoice);
-            return 'INVGK-' . ($explode[1] + 1);
+            return 'GK-' . ($explode[1] + 1);
         }
-        return 'INVGK-25';
+        return 'GK-25';
     }
 }

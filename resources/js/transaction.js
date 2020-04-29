@@ -40,13 +40,6 @@ new Vue({
         }
     },
     mounted() {
-        // $('#product_id').select2({
-        //     theme: 'bootstrap4',
-        // }).on('change', () => {
-        //     this.product.id = $('#product_id').val();
-        //     this.cart.product_id = $('#product_id').val();
-        // });
-
         this.allProducts();
         this.getCart();
     },
@@ -89,8 +82,7 @@ new Vue({
 
             axios.post('/api/cart', this.cart)
             .then((response) => {
-                setTimeout(() => {
-                    this.listCart = response.data,
+                this.listCart = response.data,
 
                     this.cart.product_id = '',
                     this.cart.qty = 1
@@ -104,7 +96,6 @@ new Vue({
                     $('#product_id').val('')
                     this.submitCart = false
                     $('#orderModal').modal('hide');
-                }, 2000)
             })
             .catch((error) => {
 
@@ -167,7 +158,7 @@ new Vue({
             .then((response) => {
                 setTimeout(() => {
                     this.products = response.data
-                }, 2000)
+                }, 1000)
             })
             .catch((error) => {
 

@@ -25,13 +25,21 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('/setting', 'SettingController');
-    Route::resource('/setting-printer', 'PrinterSettingController');
-    Route::resource('/user', 'UserController');
-    Route::resource('/role', 'RoleController');
-    Route::get('/role-permission', 'RoleController@rolePermission')->name('roles.permission.index');
-    Route::post('/role-permission', 'RoleController@storePermission')->name('roles.permission.store');
-    Route::put('/role-permission/{role}', 'RoleController@setRolePermission')->name('roles.setRolePermission');
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::resource('/setting', 'SettingController');
+        Route::resource('/setting-printer', 'PrinterSettingController');
+        Route::resource('/user', 'UserController');
+        Route::resource('/role', 'RoleController');
+        Route::get('/role-permission', 'RoleController@rolePermission')->name('roles.permission.index');
+        Route::post('/role-permission', 'RoleController@storePermission')->name('roles.permission.store');
+        Route::put('/role-permission/{role}', 'RoleController@setRolePermission')->name('roles.setRolePermission');
+        
+        // Report Route
+        Route::group(['prefix' => 'report', 'as' => 'report.'], function () {
+            Route::get('/daily-report', 'ReportController@dailyIndex')->name('daily.index');
+            Route::get('/daily-generate', 'ReportController@generateDailyPdf')->name('daily.pdf');
+        });
+    });
 
     Route::get('/order-finish', function () {
         return view('order.finish');
