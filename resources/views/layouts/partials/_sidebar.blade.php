@@ -62,12 +62,14 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Laporan</h6>
                 <a class="collapse-item" href="{{ route('report.daily.index') }}">Laporan Harian</a>
-                {{-- <a class="collapse-item" href="{{ route('product.main-product.index') }}">Produk</a>
-                <h6 class="collapse-header">Atribut</h6>
-                <a class="collapse-item" href="{{ route('product.variant.index') }}">Variant</a>
-                <a class="collapse-item" href="{{ route('product.unit.index') }}">Unit</a> --}}
             </div>
         </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('transaction-data.index') }}">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Data Transaksi</span></a>
     </li>
     @endrole
 

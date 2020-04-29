@@ -34,11 +34,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/role-permission', 'RoleController@storePermission')->name('roles.permission.store');
         Route::put('/role-permission/{role}', 'RoleController@setRolePermission')->name('roles.setRolePermission');
         
-        // Report Route
+        // Report
         Route::group(['prefix' => 'report', 'as' => 'report.'], function () {
             Route::get('/daily-report', 'ReportController@dailyIndex')->name('daily.index');
             Route::get('/daily-generate', 'ReportController@generateDailyPdf')->name('daily.pdf');
         });
+
+        // Transaction
+        Route::resource('/transaction-data', 'TransactionDataController')->except(['store', 'create', 'update', 'edit']);
     });
 
     Route::get('/order-finish', function () {
@@ -68,6 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/datatable/category', 'CategoryController@dataTable')->name('api.datatable.category');
     Route::get('/api/datatable/unit', 'UnitController@dataTable')->name('api.datatable.unit');
     Route::get('/api/datatable/variant', 'VariantController@dataTable')->name('api.datatable.variant');
+    Route::get('/api/datatable/transaction-data', 'TransactionDataController@dataTable')->name('api.datatable.transaction-data');
 
     Route::get('/testing-qpos', function () {
         try {
