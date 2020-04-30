@@ -6,8 +6,6 @@
 
 require('./bootstrap');
 
-// window.Vue = require('vue');
-
 import 'datatables.net';
 import 'datatables.net-dt/css/jquery.dataTables.css';
 import 'select2';

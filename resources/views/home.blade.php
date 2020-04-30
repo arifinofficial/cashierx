@@ -78,8 +78,8 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header text-primary font-weight-bold">Grafik Penjualan</div>
-
                 <div class="card-body">
+                    <canvas id="firstChart"></canvas>
                 </div>
             </div>
         </div>
@@ -105,3 +105,7 @@
     </div>
 </div>
 @endsection
+
+@push('bottom')
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+@endpush
