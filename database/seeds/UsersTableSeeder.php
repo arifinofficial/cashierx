@@ -24,6 +24,6 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('adminGK'),
         ]);
 
-        $user->assignRole($request->role);
+        $user->assignRole('admin');
     }
 }
