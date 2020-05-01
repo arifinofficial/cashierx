@@ -190,12 +190,13 @@ class OrderController extends Controller
                 }
      
                 return implode($hasilBaris, "\n") . "\n";
+                // return implode("\n", $hasilBaris) . "\n";
             }
 
-            $img = EscposImage::load(base_path().'/public/images/logo60.png');
-            $printer->initialize();
-            $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->graphics($img);
+            // $img = EscposImage::load(base_path().'/public/images/logo60.png');
+            // $printer->initialize();
+            // $printer->setJustification(Printer::JUSTIFY_CENTER);
+            // $printer->graphics($img);
             $printer->initialize();
             $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT);
             $printer->setJustification(Printer::JUSTIFY_CENTER);
