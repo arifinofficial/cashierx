@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('/product-item', 'ProductItemController')->except(['index', 'create', 'store', 'show', 'edit', 'update']);
     });
 
-    Route::get('/transaction', 'OrderController@addOrder')->name('order.transaksi');
+    Route::get('/transaction', 'OrderController@index')->name('order.transaksi');
     Route::post('/transaction/checkout', 'OrderController@storeOrder')->name('order.store');
 
     Route::get('/api/product/{id}', 'OrderController@getProduct');
@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/search', 'OrderController@search');
     Route::get('/api/products', 'OrderController@allProducts');
     Route::delete('/api/cart/{id}', 'OrderController@removeCart');
+    Route::get('/api/category/product/{id}', 'OrderController@getProductByCategory');
 
     Route::get('/api/datatable/user', 'UserController@dataTable')->name('api.datatable.user');
     Route::get('/api/datatable/category', 'CategoryController@dataTable')->name('api.datatable.category');
