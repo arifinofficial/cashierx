@@ -235,7 +235,8 @@ class OrderController extends Controller
             return redirect()->route('order.finish', compact('orderTotal', 'orderCash', 'orderTotalChange'))->cookie(Cookie::forget('cart'));
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->back()->with(['error' => 'Error! Silahkan Coba Kembali.']);
+            throw $th;
+            // return redirect()->back()->with(['error' => 'Error! Silahkan Coba Kembali.']);
         }
     }
 
