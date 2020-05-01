@@ -211,17 +211,10 @@ class OrderController extends Controller
                 $printer->text(buatBaris4Kolom($value->product_name, $value->qty, number_format($value->price), number_format($value->price * $value->qty)));
             }
             $printer->text("----------------------------------------\n");
-            $printer->text('Total ');
             $printer->setJustification(Printer::JUSTIFY_RIGHT);
-            $printer->text(number_format($order->total)."\n");
-            $printer->setJustification(Printer::JUSTIFY_LEFT);
-            $printer->text('Tunai ');
-            $printer->setJustification(Printer::JUSTIFY_RIGHT);
-            $printer->text(number_format($order->cash)."\n");
-            $printer->setJustification(Printer::JUSTIFY_LEFT);
-            $printer->text('Kembalian ');
-            $printer->setJustification(Printer::JUSTIFY_RIGHT);
-            $printer->text(number_format($order->total_change)."\n");
+            $printer->text('Total '.number_format($order->total)."\n");
+            $printer->text('Tunai '.number_format($order->cash)."\n");
+            $printer->text('Kembalian '.number_format($order->total_change)."\n");
             $printer->text("\n");
  
             $printer->initialize();
