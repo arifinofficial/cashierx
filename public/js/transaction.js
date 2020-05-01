@@ -14421,7 +14421,8 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     cash: '',
     totalChange: '',
     search: '',
-    products: []
+    products: [],
+    categoryProduct: ''
   },
   watch: {
     'product.id': function productId() {
@@ -14434,11 +14435,15 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     },
     'cash': function cash() {
       this.calculate();
+    },
+    'categoryProduct': function categoryProduct() {
+      this.getProductByCategory(this.categoryProduct);
     }
   },
   mounted: function mounted() {
-    this.allProducts();
+    // this.allProducts();
     this.getCart();
+    this.$refs.triggerCat.click();
   },
   created: function created() {
     var _this = this;
@@ -14446,7 +14451,9 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     this.$on('searching', function () {
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/search?q=' + _this.search).then(function (response) {
         _this.products = response.data;
-      })["catch"](function (error) {});
+      })["catch"](function (error) {
+        console.log(error);
+      });
     });
   },
   computed: {
@@ -14558,6 +14565,13 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
       this.product.id = id;
       this.cart.product_id = id;
       $('#orderModal').modal('show');
+    },
+    getProductByCategory: function getProductByCategory(id) {
+      var _this9 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/category/product/' + id).then(function (response) {
+        _this9.products = response.data;
+      })["catch"](function (error) {});
     }
   }
 });

@@ -25,6 +25,7 @@ new Vue({
         totalChange: '',
         search: '',
         products: [],
+        categoryProduct: ''
     },
     watch: {
         'product.id': function(){
@@ -37,11 +38,15 @@ new Vue({
         },
         'cash': function(){
             this.calculate();
+        },
+        'categoryProduct': function(){
+            this.getProductByCategory(this.categoryProduct);
         }
     },
     mounted() {
-        this.allProducts();
+        // this.allProducts();
         this.getCart();
+        this.$refs.triggerCat.click();
     },
     created(){
         this.$on('searching', () => {
@@ -50,7 +55,7 @@ new Vue({
                 this.products = response.data
             })
             .catch((error) => {
-
+                console.log(error);
             })
         })
     },
@@ -159,6 +164,7 @@ new Vue({
                 setTimeout(() => {
                     this.products = response.data
                 }, 1000)
+                
             })
             .catch((error) => {
 
@@ -174,6 +180,16 @@ new Vue({
             this.cart.product_id = id;
             
             $('#orderModal').modal('show');
+        },
+        getProductByCategory(id)
+        {
+            axios.get('/api/category/product/'+id)
+            .then((response) => {
+                this.products = response.data
+            })
+            .catch((error) => {
+
+            })
         }
     }
 })
