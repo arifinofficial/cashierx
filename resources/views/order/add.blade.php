@@ -13,6 +13,16 @@
     <div class="row">
         <div class="col-md-7">
             <input type="text" name="search" id="" v-model="search" v-on:keyup="searching" class="form-control mb-4" placeholder="Cari menu...">
+            <div class="wrapper-category">
+                <ul>
+                    @foreach ($categories as $key => $category)
+                    <li>
+                        <input type="radio" name="radio" value="{{ $category->id }}" {!! $key == 0 ? 'ref="triggerCat"' : '' !!} v-model="categoryProduct" id="category-{{ $category->id }}">
+                        <label class="btn btn-info" for="category-{{ $category->id }}">{{ $category->name }}</label>
+                    </li>  
+                    @endforeach
+                </ul>
+            </div>
             <div class="row">
                 <div v-for="(product, index) in products" class="col-md-4 mb-4">
                     <div class="card">
@@ -128,6 +138,33 @@
 .bg-bottom-detail{
     background-color: #656565;
     color: #fff;
+}
+.wrapper-category ul{
+    overflow-x: scroll;
+    width: 100%;
+    white-space: nowrap;
+    padding-left: 0;
+}
+
+.wrapper-category ul li{
+    display: inline-block;
+    list-style-type: none;
+    position: relative;
+}
+
+.wrapper-category label{
+    opacity: 0.8;
+}
+
+.wrapper-category input[type="radio"]{
+    position: fixed;
+    width: 0;
+    opacity: 0;
+}
+
+.wrapper-category input[type="radio"]:checked + label {
+    opacity: 1;
+    border: 2px solid #238290;
 }
 </style>
 @endpush
