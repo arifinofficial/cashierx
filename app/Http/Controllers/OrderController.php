@@ -191,6 +191,8 @@ class OrderController extends Controller
                 return implode($hasilBaris, "\n") . "\n";
             }
 
+            $img = EscposImage::load(asset('images/logo60.png'));
+            $printer->graphics($img);
             $printer->initialize();
             $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT);
             $printer->setJustification(Printer::JUSTIFY_CENTER);
