@@ -193,6 +193,8 @@ class OrderController extends Controller
             }
 
             $img = EscposImage::load(base_path().'/public/images/logo60.png');
+            $printer->initialize();
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
             $printer->graphics($img);
             $printer->initialize();
             $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT);
