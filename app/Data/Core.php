@@ -43,7 +43,9 @@ class Core
 
     public function printerSetting()
     {
-        $model = PrinterSetting::first();
+        $model = PrinterSetting::get();
+
+        $model = $model->last();
 
         return $model;
     }
