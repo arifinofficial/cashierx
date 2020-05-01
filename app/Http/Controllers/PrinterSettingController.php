@@ -14,7 +14,9 @@ class PrinterSettingController extends Controller
      */
     public function index()
     {
-        $printerSetting = PrinterSetting::first();
+        $printerSetting = PrinterSetting::get();
+
+        $printerSetting = $printerSetting->last();
 
         return view('printer_setting.index', compact('printerSetting'));
     }
