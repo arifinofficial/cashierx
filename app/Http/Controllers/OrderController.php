@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Order;
+use App\Category;
+use App\MainProduct;
 use DB;
 use Cookie;
 use Mike42\Escpos\Printer;
@@ -12,22 +14,32 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 class OrderController extends Controller
 {
-    public function addOrder()
+    public function index()
     {
-        $products = Product::orderBy('created_at', 'DESC')->get();
+        // $products = Product::orderBy('created_at', 'DESC')->get();
+        $categories = Category::get();
 
-        return view('order.add', compact('products'));
-        // return response()->json($products, 200);
+        return view('order.add', compact('categories'));
     }
 
     public function search()
     {
         $keyword = request()->q;
 
-        $products = Product::where('name', 'LIKE', '%'.$keyword.'%')->with([
-            'mainProduct' => function ($query) {
-                return $query->with(['category']);
-            }])->get();
+        $products = Product::where('name', 'LIKE', '%'.$keyword.'%')->with(['mainProduct' => function ($query) {
+            return $query->with(['category']);
+        }])->get();
+
+        return response()->json($products, 200);
+    }
+
+    public function getProductByCategory($id)
+    {
+        $products = Product::whereHas('mainProduct', function ($q) use ($id) {
+            $q->where('category_id', $id) ;
+        })->with(['mainProduct' => function ($query) {
+            return $query->with(['category']);
+        }])->get();
 
         return response()->json($products, 200);
     }
