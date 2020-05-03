@@ -124,4 +124,26 @@ class Core
        
         return $model;
     }
+
+    /**
+     * Get limit transaction order
+     *
+     * @return Collection
+     */
+    public function weekTransaction()
+    {
+        $model = Order::whereDate('created_at', '>=', Carbon::now()->subDays(7))->get()->groupBy(function ($item) {
+            return $item->created_at->format('Y-m-d');
+        });
+
+        $dateTotal = [];
+
+        foreach ($model as $key => $value) {
+            $dateTotal[$key] = number_format($value->sum('total'), 0, ',', '');
+            // $dateTotal[$key] = number_format($value->sum('total'));
+        }
+        // dd($dateTotal);
+        return json_encode($dateTotal);
+        // return $dateTotal;
+    }
 }
