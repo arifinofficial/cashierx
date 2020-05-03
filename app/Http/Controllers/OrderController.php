@@ -152,7 +152,7 @@ class OrderController extends Controller
             
             DB::commit();
 
-            $orderDetails = $order->orderDetail()->get();
+            // $orderDetails = $order->orderDetail()->get();
 
             // TESTING
 

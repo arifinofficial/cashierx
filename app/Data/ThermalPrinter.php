@@ -10,6 +10,8 @@ class ThermalPrinter
 {
     public function printOrder($order)
     {
+        $orderDetails = $order->orderDetail()->get();
+
         $connector = new WindowsPrintConnector("smb://" . core()->printerSetting()->printer_ip . "/" . core()->printerSetting()->printer_name);
         $printer = new Printer($connector);
 
