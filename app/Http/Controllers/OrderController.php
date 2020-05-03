@@ -155,11 +155,12 @@ class OrderController extends Controller
             $print = new ThermalPrinter();
             $print->printOrder($order);
 
+            $orderInvoice = $order->invoice;
             $orderTotal = $order->total;
             $orderCash = $order->cash;
             $orderTotalChange = $order->total_change;
 
-            return redirect()->route('order.finish', compact('orderTotal', 'orderCash', 'orderTotalChange'))->cookie(Cookie::forget('cart'));
+            return redirect()->route('order.finish', compact('orderTotal', 'orderCash', 'orderTotalChange', 'orderInvoice'))->cookie(Cookie::forget('cart'));
         } catch (\Throwable $th) {
             DB::rollback();
             throw $th;
