@@ -187,5 +187,7 @@ class OrderController extends Controller
 
         $print = new ThermalPrinter();
         $print->printOrder($order);
+
+        return redirect()->back();
     }
 }
