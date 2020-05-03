@@ -85,6 +85,6 @@ class ThermalPrinter
         $printer->feed(5);
         $printer->close();
 
-        return $printer;
+        return;
     }
 }
