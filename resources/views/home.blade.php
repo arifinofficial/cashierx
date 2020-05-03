@@ -96,7 +96,7 @@
                                     <span>{{ $detail->product_name }} ({{ $detail->qty }})</span>
                                 @endforeach
                             </p>
-                            <button class="btn btn-primary btn-sm">Print Struk</button>
+                            <a href="{{ route('print-order', ['orderInvoice' => $item->invoice]) }}" class="btn btn-primary btn-sm">Print Struk</a>
                         </div>
                     @endforeach
                 </div>
