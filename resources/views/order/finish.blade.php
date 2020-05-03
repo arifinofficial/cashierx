@@ -28,7 +28,7 @@
                         </tr>
                     </table>
                     <div class="d-flex justify-content-between">
-                        <a href="{{ route('order.transaksi') }}" class="btn btn-info mt-4"><i class="fas fa-print"></i> Print</a>
+                        <a href="{{ route('print-order', ['orderInvoice' => request('orderInvoice')]) }}" class="btn btn-info mt-4"><i class="fas fa-print"></i> Print</a>
                         <a href="{{ route('order.transaksi') }}" class="btn btn-primary mt-4">Kembali</a>
                     </div>
                 </div>

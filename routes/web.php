@@ -44,10 +44,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('/transaction-data', 'TransactionDataController')->except(['store', 'create', 'update', 'edit']);
     });
 
-    Route::get('/order-finish', function () {
-        return view('order.finish');
-    })->name('order.finish');
-
     Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
         Route::resource('/category', 'CategoryController');
         Route::resource('/main-product', 'MainProductController');
@@ -59,6 +55,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/transaction', 'OrderController@index')->name('order.transaksi');
     Route::post('/transaction/checkout', 'OrderController@storeOrder')->name('order.store');
+
+    Route::get('/order-finish', function () {
+        return view('order.finish');
+    })->name('order.finish');
+
+    Route::get('/print-order', 'OrderController@printOrder')->name('print-order');
 
     Route::get('/api/product/{id}', 'OrderController@getProduct');
     Route::post('/api/cart', 'OrderController@addToCart');

@@ -180,4 +180,12 @@ class OrderController extends Controller
         }
         return 'GK-25';
     }
+
+    public function printOrder()
+    {
+        $order = Order::whereInvoice(request('orderInvoice'))->firstOrFail();
+
+        $print = new ThermalPrinter();
+        $print->printOrder($order);
+    }
 }
