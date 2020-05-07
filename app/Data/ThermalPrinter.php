@@ -51,7 +51,7 @@ class ThermalPrinter
         }
 
         $printer->initialize();
-        $printer->setFont(Printer::FONT_A);
+        $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT);
         $printer->setJustification(Printer::JUSTIFY_CENTER);
         $printer->text("Goud Koffie\n");
         $printer->text("\n");
