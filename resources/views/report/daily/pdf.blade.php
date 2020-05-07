@@ -5,15 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"> --}}
     <title>Laporan Harian</title>
     <style>
         .page_break {
             page-break-before: always;
         }
-
         table {
             font-size: 10px;
+            border: 1px solid #585858;
+        }
+        table th, table td{
+            border: 1px solid #585858;
+        }
+        .text-center{
+            text-align: center;
+        }
+        .border-0{
+            border: none !important;
         }
     </style>
 </head>
@@ -21,8 +30,8 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12 text-center">
-                <h4 class="text-center">GOUD KOFFIE</h4>
+            <div class="col-md-12 text-center" style="margin-bottom: 20px">
+                <h4 class="text-center" style="margin-bottom: 8px">GOUD KOFFIE</h4>
                 <small>JL. MT. Haryono No 8, Tulungagung</small> <br>
                 <small>Laporan Penjualan Tanggal 02-05-2020</small>
                 <hr style="border-color:#000">
@@ -30,7 +39,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered">
+                <table class="table" style="width:100%">
                     <thead>
                         <tr class="text-center">
                             <th>No</th>
@@ -63,22 +72,22 @@
                         @endphp
                         @endforeach
                         <tr class="text-center">
-                            <th class="border-0" colspan="3"><strong>Sub Total:</strong></th>
-                            <th class="border-0"><strong>{{ number_format($total, 0, ',', '.') }}</strong></th>
-                            <th class="border-0"><strong>{{ number_format($cash, 0, ',', '.') }}</strong></th>
-                            <th class="border-0"><strong>{{ number_format($total_change, 0, ',', '.') }}</strong></th>
-                            <th class="border-0"></th>
+                            <th class="" colspan="3"><strong>Sub Total:</strong></th>
+                            <th class=""><strong>{{ number_format($total, 0, ',', '.') }}</strong></th>
+                            <th class=""><strong>{{ number_format($cash, 0, ',', '.') }}</strong></th>
+                            <th class=""><strong>{{ number_format($total_change, 0, ',', '.') }}</strong></th>
+                            <th class=""></th>
                         </tr>
                         <tr class="text-center">
-                            <th class="border-top-1 border-left-0 border-right-0 border-bottom-0" colspan="3">
+                            <th class="" colspan="3">
                                 <strong>Total:</strong></th>
-                            <th class="border-top-1 border-left-0 border-right-0 border-bottom-0">
+                            <th class="">
                                 <strong>{{ number_format($total, 0, ',', '.') }}</strong></th>
-                            <th class="border-top-1 border-left-0 border-right-0 border-bottom-0">
+                            <th class="">
                                 <strong>{{ number_format($cash, 0, ',', '.') }}</strong></th>
-                            <th class="border-top-1 border-left-0 border-right-0 border-bottom-0">
+                            <th class="">
                                 <strong>{{ number_format($total_change, 0, ',', '.') }}</strong></th>
-                            <th class="border-top-1 border-left-0 border-right-0 border-bottom-0"></th>
+                            <th class=""></th>
                         </tr>
                     </thead>
                 </table>
@@ -89,9 +98,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                @foreach ($results as $result)
+                @foreach ($results as $key => $result)
+                <div style="{{ $key != 0 ? 'margin-top:20px;' : '' }}"></div>
                 <hr>
-                <table class="table table-borderless">
+                <table class="table" style="width:100%;">
                     <thead>
                         <tr>
                             <th>Faktur: {{ $result->invoice }}</th>
@@ -103,7 +113,7 @@
                         </tr>
                     </thead>
                 </table>
-                <table class="table table-bordered">
+                <table class="table" style="width:100%">
                     <thead>
                         <tr class="text-center">
                             <th>No</th>
