@@ -16,9 +16,10 @@ class MainProductController extends Controller
      */
     public function index()
     {
-        $mainProducts = MainProduct::paginate(12);
+        $mainProducts = MainProduct::orderBy('created_at', 'DESC')->paginate(12);
+        $categories = Category::get();
 
-        return view('main_product.index', compact('mainProducts'));
+        return view('main_product.index', compact('mainProducts', 'categories'));
     }
 
     /**
@@ -72,8 +73,6 @@ class MainProductController extends Controller
     {
         $mainProducts = MainProduct::findOrFail($id)->products()->get();
 
-        // dd($mainProducts[0]->mainProduct->id);
-
         return view('main_product.show', compact('mainProducts'));
     }
 
@@ -111,5 +110,13 @@ class MainProductController extends Controller
         $model = MainProduct::findOrFail($id);
 
         $model->delete();
+    }
+
+    public function getByCategory($id)
+    {
+        $mainProducts = Category::with('mainProducts')->findOrFail($id);
+        $categories = Category::get();
+
+        return view('main_product.product_category', compact('mainProducts', 'categories'));
     }
 }
