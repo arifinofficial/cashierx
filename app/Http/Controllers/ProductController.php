@@ -58,7 +58,8 @@ class ProductController extends Controller
                     'is_active' => isset($product['is_active']) ? 0 : 1,
                     'variant' => $product['variant'],
                     'picture' => isset($product['picture']) ? $savedImg : null,
-                    'price' => $product['price']
+                    'price' => $product['price'],
+                    'grab_price' => $product['grab_price'],
                 ]);
 
                 foreach ($product['items'] as $item) {
@@ -83,6 +84,7 @@ class ProductController extends Controller
                 'name' => $request->name,
                 'is_active' => isset($request->is_active) ? 0 : 1,
                 'price' => $request->price,
+                'grab_price' => $request->grab_price,
                 'picture' => $request->hasFile('picture') ? $savedImg : null,
             ]);
     
