@@ -32,6 +32,14 @@ class OrderController extends Controller
             return $query->with(['category']);
         }])->get();
 
+        if (request('price_status') != 'price') {
+            $products = $products->map(function ($value, $key) {
+                $value['price'] = $value['grab_price'];
+                
+                return $value;
+            });
+        }
+
         return response()->json($products, 200);
     }
 

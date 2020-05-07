@@ -49,7 +49,10 @@ new Vue({
     },
     created(){
         this.$on('searching', () => {
-            axios.get('/api/search?q='+this.search)
+            axios.get('/api/search?q='+this.search, {
+            params: {
+                'price_status' : this.priceStatus
+            }})
             .then((response) => {
                 this.products = response.data
             })
