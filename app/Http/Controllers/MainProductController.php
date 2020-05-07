@@ -72,8 +72,9 @@ class MainProductController extends Controller
     public function show($id)
     {
         $mainProducts = MainProduct::findOrFail($id)->products()->get();
+        $categories = Category::pluck('name', 'id');
 
-        return view('main_product.show', compact('mainProducts'));
+        return view('main_product.show', compact('mainProducts', 'categories'));
     }
 
     /**
@@ -96,7 +97,17 @@ class MainProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $MainProduct = MainProduct::findOrFail($id);
+
+        $this->validate($request, [
+            'category_id' => 'required'
+        ]);
+
+        $MainProduct->update([
+            'category_id' => $request->category_id
+        ]);
+
+        return redirect()->back()->with(['success' => '<strong>Kategori Berhasil Perbaharui.</strong>']);
     }
 
     /**

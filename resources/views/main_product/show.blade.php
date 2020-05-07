@@ -2,6 +2,44 @@
 
 @section('content')
 <div class="container-fluid">
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <strong>{!! $message !!}</strong>
+    </div>
+    @endif
+
+    @if ($message = Session::get('error'))
+    <div class="alert alert-danger alert-block">
+        <strong>{!! $message !!}</strong>
+    </div>
+    @endif
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Kategori
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('product.main-product.update', request('main_product')) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-row">
+                            <div class="col-10">
+                                <select name="category_id" id="" class="form-control">
+                                    @foreach ($categories as $key => $category)
+                                        <option value="{{ $key }}" {{ $mainProducts[0]->mainProduct->category_id == $key ? 'selected' : '' }}>{{ $category }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row justify-content-center">
         @foreach ($mainProducts as $mainProduct)
         <div class="col-md-12 mb-4">
@@ -34,7 +72,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="mt-4">
+                            <div class="mt-4 d-none">
                                 <h4 class="mb-3 text-primary">Produk Item</h4>
                                 <table class="table table-striped">
                                     <thead>
