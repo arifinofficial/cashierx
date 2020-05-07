@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
         Route::resource('/category', 'CategoryController');
         Route::resource('/main-product', 'MainProductController');
+        Route::get('/main-product/category/{id}', 'MainProductController@getByCategory')->name('main-product.category');
         Route::resource('main-product.product', 'ProductController');
         Route::resource('/unit', 'UnitController');
         Route::resource('/variant', 'VariantController');
