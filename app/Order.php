@@ -15,6 +15,7 @@ class Order extends Model
         'total',
         'cash',
         'total_change',
+        'order_status',
     ];
 
     protected $dates =['deleted_at'];
