@@ -110,6 +110,8 @@
                 <h6 class="collapse-header">General</h6>
                 <a class="collapse-item" href="{{ route('setting.index') }}">Store Setting</a>
                 <a class="collapse-item" href="{{ route('setting-printer.index') }}">Printer Setting</a>
+                <h6 class="collapse-header">Discount</h6>
+                <a class="collapse-item" href="{{ route('discount.index') }}">Discount Member</a>
             </div>
         </div>
     </li>

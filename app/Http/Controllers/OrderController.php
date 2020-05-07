@@ -7,11 +7,9 @@ use App\Product;
 use App\Order;
 use App\Category;
 use App\MainProduct;
+use App\Discount;
 use DB;
 use Cookie;
-use Mike42\Escpos\Printer;
-use Mike42\Escpos\EscposImage;
-use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use App\Data\ThermalPrinter;
 
 class OrderController extends Controller
@@ -118,6 +116,19 @@ class OrderController extends Controller
         return response()->json($getCart, 200)->cookie('cart', json_encode($getCart), 120);
     }
 
+    public function getDiscount()
+    {
+        $name = request('name');
+
+        $discount = Discount::whereStatus('active')->whereName($name)->first();
+
+        if ($discount != null) {
+            return response()->json($discount, 200);
+        }
+
+        return response()->json(['value' => ''], 200);
+    }
+
     public function getCart()
     {
         $cart = json_decode(request()->cookie('cart'), true);
@@ -160,9 +171,12 @@ class OrderController extends Controller
             $order = Order::create([
                 'invoice' => $this->generateInvoice(),
                 'user'  => auth()->user()->name,
+                'sub_total' => $request->sub_total,
                 'total' => $request->total,
                 'cash' => $request->cash,
                 'total_change' => $request->total_change,
+                'discount_name' => $request->discount_name,
+                'discount_value' => $request->discount_value,
                 'order_status' => $request->price_status != 'price' ? 'Grab' : 'Cafe',
             ]);
             

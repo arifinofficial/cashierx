@@ -71,6 +71,10 @@ class ThermalPrinter
         }
         $printer->text("----------------------------------------\n");
         $printer->setJustification(Printer::JUSTIFY_RIGHT);
+        if ($order->discount_value != null) {
+            $printer->text('Diskon '.$order->discount_value."% \n");
+        }
+        $printer->text('Sub Total '.number_format($order->sub_total)."\n");
         $printer->text('Total '.number_format($order->total)."\n");
         $printer->text('Tunai '.number_format($order->cash)."\n");
         $printer->text('Kembalian '.number_format($order->total_change)."\n");

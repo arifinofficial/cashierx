@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => ['role:admin']], function () {
         Route::resource('/setting', 'SettingController');
         Route::resource('/setting-printer', 'PrinterSettingController');
+        Route::resource('/discount', 'DiscountController');
         Route::resource('/user', 'UserController');
         Route::resource('/role', 'RoleController');
         Route::get('/role-permission', 'RoleController@rolePermission')->name('roles.permission.index');
@@ -70,6 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/products', 'OrderController@allProducts');
     Route::delete('/api/cart/{id}', 'OrderController@removeCart');
     Route::get('/api/category/product/{id}', 'OrderController@getProductByCategory');
+    Route::get('/api/discount', 'OrderController@getDiscount');
 
     Route::get('/api/datatable/user', 'UserController@dataTable')->name('api.datatable.user');
     Route::get('/api/datatable/category', 'CategoryController@dataTable')->name('api.datatable.category');

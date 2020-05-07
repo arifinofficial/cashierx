@@ -15,6 +15,11 @@ new Vue({
         },
         listCart: [],
         submitCart: false,
+        discount: {
+            discountName: '',
+            discountValue: '',
+        },
+        subTotal: '',
         total: '',
         cash: '',
         totalChange: '',
@@ -108,6 +113,32 @@ new Vue({
 
             })
         },
+        addDiscount(){
+            axios.get('/api/discount', {params: {'name': this.discount.discountName}})
+            .then((response) => {
+                if (response.data.value != '') {
+                    this.discount.discountValue = response.data.value;   
+                    swal({
+                        title: 'Sukses!',
+                        text: `Diskon ${response.data.value}% Diterapkan`,
+                        icon: 'success',
+                        timer: 3000
+                    });  
+                }else{
+                    this.discount.discountValue = '';
+                    swal({
+                        title: 'Gagal!',
+                        text: 'Kode Diskon Tidak Ditemukan.',
+                        icon: 'error',
+                        timer: 3000
+                    }); 
+                }
+                this.totalCart();
+            })
+            .catch((error) => {
+
+            })
+        },
         getCart(){
             axios.get('/api/cart')
             .then((response) => {
@@ -143,15 +174,32 @@ new Vue({
         },
         totalCart()
         {
-            let keys = Object.keys(this.listCart);
-            let total = 0;          
-            keys.forEach(key => {
-                let item = this.listCart[key];
-                
-                total += (parseInt(item.price) * item.qty)
-            })
+            if (this.discount.discountValue == "") {
+                let keys = Object.keys(this.listCart);
+                let total = 0;          
+                keys.forEach(key => {
+                    let item = this.listCart[key];
+                    
+                    total += (parseInt(item.price) * item.qty)
+                })
+    
+                this.subTotal = total;
+                this.total = total;
+            } else {
+                let keys = Object.keys(this.listCart);
+                let subTotal = 0;   
+                let total = 0;       
+                keys.forEach(key => {
+                    let item = this.listCart[key];
+                    
+                    subTotal += (parseInt(item.price) * item.qty)
+                })
+    
+                total = subTotal - (subTotal / 100 * this.discount.discountValue)
 
-            this.total = total;
+                this.subTotal = subTotal;
+                this.total = total;
+            }
         },
         calculate()
         {
@@ -189,7 +237,7 @@ new Vue({
             params: {
                 'price_status' : this.priceStatus
             }
-        })
+            })
             .then((response) => {
                 this.products = response.data
                 // if (this.priceStatus == 'price_grab') {

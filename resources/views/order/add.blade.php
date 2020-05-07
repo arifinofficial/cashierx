@@ -59,7 +59,7 @@
         <div class="col-md-5">
             <div class="card">
                 <div class="card-header text-primary font-weight-bold">Order <h4 class="d-inline float-right"><span :class="priceStatus == 'price' ? 'badge badge-primary' : 'badge badge-success'">@{{ priceStatusFormat }}</span></h4></div>
-                <div class="card-body">
+                <div class="card-body pb-0">
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -83,7 +83,8 @@
                                 </tr>
                                 <tr class="bg-bottom-detail">
                                     <td colspan="1" class="font-weight-bold">Total</td>
-                                    <td colspan="3" class="text-right font-weight-bold">@{{ total | currency }}</td>
+                                    <td colspan="3" class="text-right font-weight-bold" v-if="total === subTotal">@{{ total | currency }}</td>
+                                    <td colspan="3" class="text-right font-weight-bold" v-else><small><del>@{{ subTotal | currency }}</del> (@{{ discount.discountValue }}%)</small> @{{ total | currency }}</td>
                                 </tr>
                                 <tr class="bg-bottom-detail">
                                     <td colspan="1" class="font-weight-bold">Tunai</td>
@@ -104,16 +105,33 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <form action="{{ route('order.store') }}" method="POST" class="diable-multi-submit">
-                        @csrf
-                        <input type="hidden" name="price_status" v-model="priceStatus">
-                        <input type="hidden" name="total" v-model="total">
-                        <input type="hidden" name="cash" v-model="cash">
-                        <input type="hidden" name="total_change" v-model="totalChange">
-                        <button type="submit" class="btn btn-info float-right" id="submitOrder">
-                            Bayar
-                        </button>
-                    </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-row align-items-center">
+                                <div class="col">
+                                    <input type="text" name="member" id="member" v-model="discount.discountName" class="form-control" placeholder="Kode Diskon">
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-primary" @click.prevent='addDiscount' :disabled="Object.keys(listCart).length == 0">Update Harga</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <form action="{{ route('order.store') }}" method="POST" class="diable-multi-submit">
+                                @csrf
+                                <input type="hidden" name="price_status" v-model="priceStatus">
+                                <input type="hidden" name="sub_total" v-model="subTotal">
+                                <input type="hidden" name="total" v-model="total">
+                                <input type="hidden" name="cash" v-model="cash">
+                                <input type="hidden" name="total_change" v-model="totalChange">
+                                <input type="hidden" name="discount_name" v-model="discount.discountName">
+                                <input type="hidden" name="discount_value" v-model="discount.discountValue">
+                                <button type="submit" class="btn btn-info btn-lg w-100" id="submitOrder" :disabled="Object.keys(listCart).length == 0">
+                                    Bayar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
