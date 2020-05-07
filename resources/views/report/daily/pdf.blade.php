@@ -48,6 +48,7 @@
                             <th>Total</th>
                             <th>Bayar</th>
                             <th>Kembali</th>
+                            <th>Order Status</th>
                             <th>Tanggal</th>
                         </tr>
                         @php
@@ -63,6 +64,7 @@
                             <td class="text-center">{{ number_format($result->total, 0, ',', '.') }}</td>
                             <td class="text-center">{{ number_format($result->cash, 0, ',', '.') }}</td>
                             <td class="text-center">{{ number_format($result->total_change, 0, ',', '.') }}</td>
+                            <td class="text-center">{{ $result->order_status == 'Grab' ? 'Grab' : 'Cafe' }}</td>
                             <td class="text-center">{{ $result->created_at->format('d-m-Y - H:i:s') }}</td>
                         </tr>
                         @php
@@ -76,7 +78,7 @@
                             <th class=""><strong>{{ number_format($total, 0, ',', '.') }}</strong></th>
                             <th class=""><strong>{{ number_format($cash, 0, ',', '.') }}</strong></th>
                             <th class=""><strong>{{ number_format($total_change, 0, ',', '.') }}</strong></th>
-                            <th class=""></th>
+                            <th class="" colspan="2"></th>
                         </tr>
                         <tr class="text-center">
                             <th class="" colspan="3">
@@ -87,7 +89,7 @@
                                 <strong>{{ number_format($cash, 0, ',', '.') }}</strong></th>
                             <th class="">
                                 <strong>{{ number_format($total_change, 0, ',', '.') }}</strong></th>
-                            <th class=""></th>
+                            <th class="" colspan="2"></th>
                         </tr>
                     </thead>
                 </table>
@@ -109,6 +111,7 @@
                             <td>Total: {{ number_format($result->total, 0, ',', '.') }}</td>
                             <td>Bayar: {{ number_format($result->cash, 0, ',', '.') }}</td>
                             <td>Kembali: {{ number_format($result->total_change, 0, ',', '.') }}</td>
+                            <td>Order Status: {{ $result->order_status == 'Grab' ? 'Grab' : 'Cafe' }}</td>
                             <td>{{ $result->created_at->format('d-m-Y - H:i:s') }}</td>
                         </tr>
                     </thead>
