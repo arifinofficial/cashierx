@@ -43,6 +43,14 @@ class OrderController extends Controller
             return $query->with(['category']);
         }])->get();
 
+        if (request('price_status') == 'price_grab') {
+            $products = $products->map(function ($value, $key) {
+                $value['price'] = $value['grab_price'];
+                
+                return $value;
+            });
+        }
+
         return response()->json($products, 200);
     }
 
@@ -83,12 +91,21 @@ class OrderController extends Controller
             }
         }
 
-        $getCart[$request->product_id] = [
-            'name' => $product->name,
-            'price' => $product->price,
-            'qty' => $request->qty,
-            'variant' => $product->variant,
-        ];
+        if ($request->price_status == 'price_grab') {
+            $getCart[$request->product_id] = [
+                'name' => $product->name,
+                'price' => $product->grab_price,
+                'qty' => $request->qty,
+                'variant' => $product->variant,
+            ];
+        } else {
+            $getCart[$request->product_id] = [
+                'name' => $product->name,
+                'price' => $product->price,
+                'qty' => $request->qty,
+                'variant' => $product->variant,
+            ];
+        }
 
         return response()->json($getCart, 200)->cookie('cart', json_encode($getCart), 120);
     }
@@ -111,6 +128,7 @@ class OrderController extends Controller
 
     public function storeOrder(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'total' => 'required|integer',
             'cash' => 'required|integer',
@@ -136,7 +154,8 @@ class OrderController extends Controller
                 'user'  => auth()->user()->name,
                 'total' => $request->total,
                 'cash' => $request->cash,
-                'total_change' => $request->total_change
+                'total_change' => $request->total_change,
+                'order_status' => $request->price_status != 'price' ? 'Grab' : 'Cafe',
             ]);
             
             foreach ($result as $key => $row) {
