@@ -21,8 +21,12 @@
                                         <td>{{ $mainProduct->id }}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Price</th>
+                                        <th scope="row">Harga</th>
                                         <td>{{ $mainProduct->price }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Harga Grab</th>
+                                        <td>{{ $mainProduct->grab_price }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Status</th>

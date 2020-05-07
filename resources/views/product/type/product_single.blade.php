@@ -22,6 +22,20 @@
                         @endif
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <label for="">Harga Grab</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Rp.</div>
+                          </div>
+                        <input type="number" name="grab_price" id="grab_price" value="{{ old('grab_price') }}" class="{{ $errors->has('grab_price') ? 'form-control is-invalid' : 'form-control' }}">
+                        @if ($errors->has('grab_price'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('grab_price') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
             </div>
             <div class="form-group mt-3 mt-md-3">
                 <label for="exampleFormControlFile1">Foto Produk</label>

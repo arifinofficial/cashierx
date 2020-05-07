@@ -22,6 +22,7 @@
                                     <th>Total</th>
                                     <th>Bayar</th>
                                     <th>Kembalian</th>
+                                    <th>Order Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -33,6 +34,7 @@
                                     <th>Total</th>
                                     <th>Bayar</th>
                                     <th>Kembalian</th>
+                                    <th>Order Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>
@@ -65,6 +67,7 @@
                 {data: 'total', name: 'total'},
                 {data: 'cash', name: 'cash'},
                 {data: 'total_change', name: 'total_change'},
+                {data: 'order_status', name: 'order_status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         })
