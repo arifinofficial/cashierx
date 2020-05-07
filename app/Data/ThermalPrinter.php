@@ -52,12 +52,13 @@ class ThermalPrinter
 
         $printer->initialize();
         $printer->setJustification(Printer::JUSTIFY_CENTER);
+        $printer->setFont(Printer::FONT_A);
         $printer->text("Goud Koffie\n");
         $printer->text("\n");
         $printer->initialize();
         $printer->setFont(Printer::FONT_B);
         $printer->setJustification(Printer::JUSTIFY_CENTER);
-        $printer->text("JL. MT Haryono No 8, Kedungwaru, Tulungagung. \n");
+        $printer->text("JL. MT Haryono No 8, Kedungwaru. \n");
         $printer->text("Tulungagung - Jawa Timur. \n \n");
  
         $printer->initialize();
