@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Main Produk</h1>
+        <h1 class="h3 mb-0 text-gray-800">Produk List</h1>
         <a href="{{ route('product.main-product.create') }}"
             class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" title="Tambah Produk"><i
                 class="fas fa-plus fa-sm text-white-50"></i> Buat Baru</a>
