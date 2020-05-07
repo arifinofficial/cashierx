@@ -16,7 +16,8 @@ class Product extends Model
         'picture',
         'variant',
         'qty',
-        'price'
+        'price',
+        'grab_price'
     ];
 
     protected $dates =['deleted_at'];
