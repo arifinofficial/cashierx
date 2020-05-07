@@ -55,6 +55,9 @@ class ThermalPrinter
         $printer->setJustification(Printer::JUSTIFY_CENTER);
         $printer->text("Goud Koffie\n");
         $printer->text("\n");
+        $printer->initialize();
+        $printer->setFont(Printer::FONT_B);
+        $printer->text("JL. MT Haryono No 8, Kedungwaru, Tulungagung. \n");
  
         $printer->initialize();
         $printer->text("Kasir : ".$order->user."\n");
