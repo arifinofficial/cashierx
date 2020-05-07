@@ -8,12 +8,7 @@ Vue.filter('currency', function (money) {
 new Vue({
     el: '#app',
     data: {
-        product: {
-            id: '',
-            price: '',
-            name: '',
-            picture: '',
-        },
+        product: {},
         cart: {
             product_id: '',
             qty: 1,
@@ -25,13 +20,17 @@ new Vue({
         totalChange: '',
         search: '',
         products: [],
-        categoryProduct: ''
+        categoryProduct: '',
+        priceStatus: 'price',
     },
     watch: {
-        'product.id': function(){
-            if (this.product.id) {
-                this.getProduct();
-            }
+        // 'product.id': function(){
+        //     if (this.product.id) {
+        //         this.getProduct();
+        //     }
+        // },
+        'priceStatus': function(){
+            this.getProductByCategory(this.categoryProduct);
         },
         'listCart': function(){
             this.totalCart();
@@ -73,19 +72,23 @@ new Vue({
             })
 
             return total;
+        },
+        priceStatusFormat()
+        {
+            return this.priceStatus != 'price' ? 'Harga Grab' : 'Harga Cafe';
         }
     },
     methods: {
-        getProduct(){
-            axios.get(`/api/product/${this.product.id}`)
-            .then((response) => {
-                this.product = response.data
-            })
-        },
+        // getProduct(){
+        //     axios.get(`/api/product/${this.product.id}`)
+        //     .then((response) => {
+        //         this.product = response.data
+        //     })
+        // },
         addToCart(){
             this.submitCart = true;
 
-            axios.post('/api/cart', this.cart)
+            axios.post('/api/cart', this.cart, {params: {'price_status': this.priceStatus}})
             .then((response) => {
                 this.listCart = response.data,
 
@@ -93,10 +96,6 @@ new Vue({
                     this.cart.qty = 1
                     this.product = {
                         id: '',
-                        qty: '',
-                        price: '',
-                        name: '',
-                        picture: '',
                     }
                     $('#product_id').val('')
                     this.submitCart = false
@@ -157,19 +156,19 @@ new Vue({
 
             this.totalChange = change;
         },
-        allProducts()
-        {
-            axios.get('/api/products')
-            .then((response) => {
-                setTimeout(() => {
-                    this.products = response.data
-                }, 1000)
+        // allProducts()
+        // {
+        //     axios.get('/api/products')
+        //     .then((response) => {
+        //         setTimeout(() => {
+        //             this.products = response.data
+        //         }, 1000)
                 
-            })
-            .catch((error) => {
+        //     })
+        //     .catch((error) => {
 
-            })
-        },
+        //     })
+        // },
         searching()
         {
             this.$emit('searching');
@@ -183,13 +182,27 @@ new Vue({
         },
         getProductByCategory(id)
         {
-            axios.get('/api/category/product/'+id)
+            axios.get('/api/category/product/'+id, {
+            params: {
+                'price_status' : this.priceStatus
+            }
+        })
             .then((response) => {
                 this.products = response.data
+                // if (this.priceStatus == 'price_grab') {
+                //     this.products.price = 
+                // }
             })
             .catch((error) => {
 
             })
+            // axios.get('/api/category/product/'+id)
+            // .then((response) => {
+            //     this.products = response.data
+            // })
+            // .catch((error) => {
+
+            // })
         }
     }
 })
