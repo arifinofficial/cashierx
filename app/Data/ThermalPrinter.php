@@ -51,15 +51,17 @@ class ThermalPrinter
         }
 
         $printer->initialize();
-        $printer->selectPrintMode(Printer::MODE_DOUBLE_HEIGHT);
         $printer->setJustification(Printer::JUSTIFY_CENTER);
         $printer->text("Goud Koffie\n");
         $printer->text("\n");
         $printer->initialize();
         $printer->setFont(Printer::FONT_B);
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
         $printer->text("JL. MT Haryono No 8, Kedungwaru, Tulungagung. \n");
+        $printer->text("Tulungagung - Jawa Timur. \n \n");
  
         $printer->initialize();
+        $printer->setFont(Printer::FONT_A);
         $printer->text("Kasir : ".$order->user."\n");
         $printer->text("No Order :".$order->invoice."\n");
         $printer->text("Waktu :".date($order->created_at)."\n");
