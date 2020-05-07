@@ -3,15 +3,12 @@
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Main Produk</h1>
-        <a href="{{ route('product.main-product.create') }}"
-            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" title="Tambah Produk"><i
-                class="fas fa-plus fa-sm text-white-50"></i> Buat Baru</a>
+        <h1 class="h3 mb-0 text-gray-800">Kategori {{ $mainProducts->name }}</h1>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="row">
-                @foreach ($mainProducts as $mainProduct)
+                @foreach ($mainProducts->mainProducts as $mainProduct)
                 <div class="col-md-3 mb-4">
                     <div class="card">
                         <div class="card-header text-primary text-center">{{ $mainProduct->category->name }}</div>
@@ -48,7 +45,6 @@
                 @endforeach
             </div>
             <div class="d-flex justify-content-center mt-4">
-                {{ $mainProducts->links() }}
             </div>
         </div>
         <div class="col-md-3">
