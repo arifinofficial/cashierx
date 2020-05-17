@@ -7,6 +7,7 @@ use App\Setting;
 use App\PrinterSetting;
 use App\Product;
 use App\Order;
+use App\Discount;
 use Carbon\Carbon;
 
 class Core
@@ -145,5 +146,32 @@ class Core
         // dd($dateTotal);
         return json_encode($dateTotal);
         // return $dateTotal;
+    }
+
+    /**
+     * Get discount voucher
+     *
+     * @return Collection
+     */
+    public function getDiscountAttr()
+    {
+        $model = Discount::orderBy('created_at', 'DESC')->get();
+
+        return $model;
+    }
+
+    public function getUserIpAddress()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            //ip from share internet
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            //ip pass from proxy
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        
+        return $ip;
     }
 }

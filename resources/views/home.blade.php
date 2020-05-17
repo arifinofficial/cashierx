@@ -84,27 +84,76 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
-                <div class="card-header text-primary font-weight-bold">Penjualan Terakhir</div>
-
-                <div class="card-body">
-                    @foreach (core()->limitTransaction() as $item)
-                        <div class="jumbotron px-2 py-3 text-center" style="color:#5a5c69;">
-                            <p class="font-weight-bold">{{ $item->invoice }} - {{ $item->user }} | Rp. {{ number_format($item->total, 0, ',', '.') }}</p>
-                            <p>
-                                @foreach ($item->orderDetail as $detail)
-                                    <span>{{ $detail->product_name }} ({{ $detail->qty }})</span>
-                                @endforeach
-                            </p>
-                            <a href="{{ route('print-order', ['orderInvoice' => $item->invoice]) }}" class="btn btn-primary btn-sm">Print Struk</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header text-primary font-weight-bold">Penjualan Terakhir</div>
+        
+                        <div class="card-body scroll">
+                            @foreach (core()->limitTransaction() as $item)
+                                <div class="jumbotron px-2 py-3 text-center" style="color:#5a5c69;">
+                                    <p class="font-weight-bold">{{ $item->invoice }} - {{ $item->user }} | Rp. {{ number_format($item->total, 0, ',', '.') }}</p>
+                                    <p>
+                                        @foreach ($item->orderDetail as $detail)
+                                            <span>{{ $detail->product_name }} ({{ $detail->qty }})</span>
+                                        @endforeach
+                                    </p>
+                                    <a href="{{ route('print-order', ['orderInvoice' => $item->invoice]) }}" class="btn btn-primary btn-sm">Print Struk</a>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-4">
+                    <div class="card">
+                        <div class="card-header text-primary font-weight-bold">List Kode Diskon</div>
+        
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Kode Diskon</th>
+                                            <th>Diskon Value</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse (core()->getDiscountAttr() as $key => $item)
+                                            <tr class="text-center">
+                                                <th>{{ $key + 1 }}</th>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->value }}%</td>
+                                                <td class="text-capitalize">{{ $item->status }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <th colspan="4" class="text-center">Tidak ada data diskon.</th>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('top')
+    <style>
+        .scroll{
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+    </style>
+@endpush
 
 @push('bottom')
 <script src="{{ asset('js/dashboard.js') }}"></script>
