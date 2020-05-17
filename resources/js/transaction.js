@@ -27,6 +27,7 @@ new Vue({
         products: [],
         categoryProduct: '',
         priceStatus: 'price',
+        paymentType: ''
     },
     watch: {
         // 'product.id': function(){

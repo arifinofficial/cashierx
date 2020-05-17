@@ -96,8 +96,15 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4">
-                                        <input type="number" name="" id="cash" v-model="cash" class="form-control">
+                                    <td colspan="4" class="pb-0">
+                                        <div class="form-row align-items-center">
+                                            <div class="col">
+                                                <input type="text" name="member" id="member" v-model="discount.discountName" class="form-control" placeholder="Kode Diskon">
+                                            </div>
+                                            <div class="col-auto">
+                                                <button class="btn btn-primary" @click.prevent='addDiscount' :disabled="Object.keys(listCart).length == 0">Update Harga</button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -108,12 +115,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-row align-items-center">
-                                <div class="col">
-                                    <input type="text" name="member" id="member" v-model="discount.discountName" class="form-control" placeholder="Kode Diskon">
-                                </div>
-                                <div class="col-auto">
-                                    <button class="btn btn-primary" @click.prevent='addDiscount' :disabled="Object.keys(listCart).length == 0">Update Harga</button>
-                                </div>
+                                <input type="number" name="" id="cash" v-model="cash" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4" v-if="priceStatus == 'price_grab'">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" v-model="paymentType" true-value="ovo" false-value="" id="ovopayment">
+                                <label class="form-check-label" for="ovopayment">
+                                    <small>Centang jika pembayaran menggunakan OVO</small>
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-12 mt-4">
@@ -126,6 +136,7 @@
                                 <input type="hidden" name="total_change" v-model="totalChange">
                                 <input type="hidden" name="discount_name" v-model="discount.discountName">
                                 <input type="hidden" name="discount_value" v-model="discount.discountValue">
+                                <input type="hidden" name="payment_type" v-model="paymentType">
                                 <button type="submit" class="btn btn-info btn-lg w-100" id="submitOrder" :disabled="Object.keys(listCart).length == 0">
                                     Bayar
                                 </button>

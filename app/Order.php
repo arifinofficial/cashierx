@@ -15,6 +15,7 @@ class Order extends Model
         'sub_total',
         'total',
         'cash',
+        'payment_type',
         'total_change',
         'discount_name',
         'discount_value',

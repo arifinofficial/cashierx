@@ -167,6 +167,7 @@ class OrderController extends Controller
         })->all();
 
         DB::beginTransaction();
+
         try {
             $order = Order::create([
                 'invoice' => $this->generateInvoice(),
@@ -174,6 +175,7 @@ class OrderController extends Controller
                 'sub_total' => $request->sub_total,
                 'total' => $request->total,
                 'cash' => $request->cash,
+                'payment_type' => $request->payment_type == 'ovo' ? 'ovo' : 'cash',
                 'total_change' => $request->total_change,
                 'discount_name' => $request->discount_name,
                 'discount_value' => $request->discount_value,
