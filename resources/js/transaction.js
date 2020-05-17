@@ -46,6 +46,13 @@ new Vue({
         },
         'categoryProduct': function(){
             this.getProductByCategory(this.categoryProduct);
+        },
+        'paymentType': function(){
+            if (this.paymentType != '') {
+                this.cash = this.total;
+            } else {
+                this.cash = "";
+            }
         }
     },
     mounted() {

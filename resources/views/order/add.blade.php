@@ -120,9 +120,9 @@
                         </div>
                         <div class="col-md-12 mt-4" v-if="priceStatus == 'price_grab'">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" v-model="paymentType" true-value="ovo" false-value="" id="ovopayment">
+                                <input class="form-check-input" :disabled="Object.keys(listCart).length == 0" type="checkbox" v-model="paymentType" true-value="ovo" false-value="" id="ovopayment">
                                 <label class="form-check-label" for="ovopayment">
-                                    <small>Centang jika pembayaran menggunakan OVO</small>
+                                    <small>Centang jika pembayaran menggunakan OVO/non tunai.</small>
                                 </label>
                             </div>
                         </div>
