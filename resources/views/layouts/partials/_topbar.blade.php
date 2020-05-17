@@ -45,6 +45,10 @@
             </div>
         </li>
 
+        <li class="nav-item no-arrow">
+            <span class="nav-link small text-dark"><strong>IP Address: {{ core()->getUserIpAddress() }}</strong></span>
+        </li>
+
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
